@@ -5,8 +5,6 @@ const main = document.querySelector('main')
 
 const createCard= () =>{
 
-
-
   const card = document.createElement('div')
   card.classList.add('card')
 
@@ -37,13 +35,24 @@ const createCard= () =>{
 
 }
 
-window.addEventListener('DOMContentLoaded', createCard)
+const URL = 'https://fakestoreapi.com/products'
 
-const cards= () =>{
-  for (let index = 0; index < 30; index++) {
-    createCard()
-  }
+function objects(URL) {
+  return fetch(URL)
+  .then(response => response.json())
+  .then(data => data)
+  .catch(err => console.error(err));  
 }
 
-cards()
+const createCards= async ()=>{
+  const datas= await objects(URL)
+  console.log(datas)
+  datas.forEach(product => {
+    createCard()
+  });
+}
+
+window.addEventListener('DOMContentLoaded', createCards)
+
+
 
