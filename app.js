@@ -33,14 +33,22 @@ const createCard = () => {
   main.appendChild(card)
 }
 
-window.addEventListener('DOMContentLoaded', createCard)
+const URL = 'https://fakestoreapi.com/products'
 
-const thirtyCard = () => {
-  for (let index = 0; index < 30; index++) {
-    createCard()
-  }
+const data = async (URL) =>{
+  return fetch(URL)
+  .then(response => response.json())
+  .then(response => date)
+  .catch(err => console.error(err));
 }
 
-thirtyCard()
+const createCards = () => {
+  const product = await data(URL)
+}
+
+createCards(data)
+
+window.addEventListener('DOMContentLoaded', createCard)
+
 
 
