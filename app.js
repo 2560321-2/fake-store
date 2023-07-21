@@ -1,43 +1,78 @@
-const img = "https://images.pexels.com/photos/4109850/pexels-photo-4109850.jpeg?auto=compress&cs=tinysrgb&w=600";
 
-const description = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eveniet unde sunt hic mollitia nihil reprehenderit, vero neque sint saepe debitis quibusdam iusto fugiat illum voluptatum quo repellendus veritatis impedit.'
+const URL = 'https://fakestoreapi.com/products'
+
+const img = "https://images.pexels.com/photos/4109850/pexels-photo-4109850.jpeg?auto=compress&cs=tinysrgb&w=600"
+
+const description = 
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eveniet unde sunt hic mollitia nihil reprehenderit, vero neque sint saepe debitis quibusdam iusto fugiat illum voluptatum quo repellendus veritatis impedit.'
+
+const finder = document.getElementById('finder-products');
+
+finder.addEventListener('keyup', finderProducts);
+
+async function finderProducts(event){
+  const products = await getObjects(URL);
+  const filterProducts = products.filter(product=>product.title.toUpperCase().includes((event.target.value).toUpperCase()))
+  main.innerHTML='';
+  filterProducts.forEach(product=> createCard(product))
+}
+
 
 const main = document.querySelector('main');
 
-const createCard = () => {
+const createCard = (product) => {
   const card = document.createElement('div');
   card.classList.add('card');
 
+
   const imgCard = document.createElement('img');
-  imgCard.src = img;
+  imgCard.src = product.image || img;
   imgCard.alt = "Imagen de producto";
 
-  const tittleProduct = document.createElement('h2');
-  tittleProduct.textContent = "Producto";
+  const titleProduct = document.createElement('h2');
+  titleProduct.textContent = product.title || 'Producto';
 
   const categoryCard = document.createElement('p');
-  categoryCard.textContent = "Category";
+  categoryCard.textContent = product.category || 'Category';
 
-  const description = document.createElement('p');
-  description.textContent = "Text";
+  const descriptionCard = document.createElement('p');
+  descriptionCard.textContent = product.description || description;
 
   const priceCard = document.createElement('p');
-  price.classList = "$price"
+  priceCard.classList.add('price');
+  priceCard.textContent = `$${product.$price}` || '$price';
 
   card.appendChild(imgCard);
-  card.appendChild(tittleProduct);
+  card.appendChild(titleProduct);
   card.appendChild(categoryCard);
-  card.appendChild(description);
+  card.appendChild(descriptionCard);
   card.appendChild(priceCard);
-  main.appendChild(card)
 
-
-
-
+  main.appendChild(card);
 
 }
 
-window.addEventListener('DOMContentLoaded', createCard);
+function getObjects(URL) {
+    return fetch(URL)
+    .then(response => response.json())
+    .then(data => data)
+    .catch(err => console.error(err));
+}
+
+
+const makingCards = async () => {
+  const products = await getObjects(URL)
+  console.log(products);
+  products.forEach(product => {
+  createCard(product);
+
+  });
+}
+
+
+
+window.addEventListener('DOMContentLoaded', makingCards);
+
 
 /*<div class="card">
       <img src="https://images.pexels.com/photos/4109850/pexels-photo-4109850.jpeg?auto=compress&cs=tinysrgb&w=600" alt="card-product">
