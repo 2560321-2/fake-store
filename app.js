@@ -1,29 +1,31 @@
 const img = "https://images.pexels.com/photos/4109850/pexels-photo-4109850.jpeg?auto=compress&cs=tinysrgb&w=600" 
 const texts=  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eveniet unde sunt hic mollitia nihil reprehenderit, vero neque sint saepe debitis quibusdam iusto fugiat illum voluptatum quo repellendus veritatis impedit."
-
+const URL = 'https://fakestoreapi.com/products'
 const main = document.querySelector('main')
 
-const createCard= () =>{
+
+const createCard= (product) =>{
+
 
   const card = document.createElement('div')
   card.classList.add('card')
 
   const image = document.createElement('img')
-  image.src=img
+  image.src=product.image
   image.alt='card-product'
 
   const title= document.createElement('h2')
-  title.textContent='title-product'
+  title.textContent=product.title
 
   const textCategory = document.createElement('p')
-  textCategory.textContent='Category'
+  textCategory.textContent=product.category
 
   const textLong= document.createElement('p')
-  textLong.textContent= texts
+  textLong.textContent= product.description
 
   const price= document.createElement('p')
   price.classList.add('price')
-  price.textContent= '$price'
+  price.textContent= product.price
 
   card.appendChild(image)
   card.appendChild(title)
@@ -35,7 +37,7 @@ const createCard= () =>{
 
 }
 
-const URL = 'https://fakestoreapi.com/products'
+
 
 function objects(URL) {
   return fetch(URL)
@@ -48,9 +50,12 @@ const createCards= async ()=>{
   const datas= await objects(URL)
   console.log(datas)
   datas.forEach(product => {
-    createCard()
+    createCard(product)
   });
+
 }
+
+
 
 window.addEventListener('DOMContentLoaded', createCards)
 
