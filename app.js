@@ -2,9 +2,10 @@ const img='https://images.pexels.com/photos/4109850/pexels-photo-4109850.jpeg?au
 
 const description = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eveniet unde sunt hic mollitia nihil reprehenderit, vero neque sint saepe debitis quibusdam iusto fugiat illum voluptatum quo repellendus veritatis impedit.';
 
-const mainCard = document.getElementById('main');
+const mainCard = document.querySelector('main');
 
 const createCard =() => {
+    
     const card =document.createElement('div');
     card.classList.add('card');
 
@@ -25,9 +26,17 @@ const createCard =() => {
     price.classList.add('price');
     price.textContent ='$price';
 
-    card.appendChild(card);
-    imgCard.appendChild(imgCard);
+    mainCard.appendChild(card);
+    card.appendChild(imgCard);
+    card.appendChild(title);
+    card.appendChild(titleCategory);
+    card.appendChild(boxText);
+    card.appendChild(price);
 
 }
 
 window.addEventListener('DOMContentLoaded', createCard);
+
+for (let index = 0; index < 30; index++) {
+    createCard();
+}
