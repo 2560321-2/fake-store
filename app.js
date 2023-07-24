@@ -55,6 +55,17 @@ const createCards= async ()=>{
 
 }
 
+search.addEventListener("keyup", finderProducts);
+
+async function finderProducts(event) {
+  const products = await objects(URL);
+  const filterProducts = products.filter((product) =>
+    product.title.includes(event.target.value)
+  );
+  main.innerHTML = "";
+  filterProducts.forEach((product) => createCard(product));
+}
+
 
 
 window.addEventListener('DOMContentLoaded', createCards)
